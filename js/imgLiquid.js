@@ -81,6 +81,7 @@ imgLiquid.injectCss = '.imgLiquid img {visibility:hidden}';
 				hardPixels: true,					/* Only for use with BackgroundSize false (or old browsers) */
 				responsiveCheckTime: 500,			/* Only for use with BackgroundSize false (or old browsers) */ /* time to check div resize */
 				timecheckvisibility: 500,			/* Only for use with BackgroundSize false (or old browsers) */ /* time to recheck if visible/loaded */
+				updateOnWindowResize: true, 
 
 				// CALLBACKS
 				onStart: null,						// no-params
@@ -245,6 +246,9 @@ imgLiquid.injectCss = '.imgLiquid img {visibility:hidden}';
 
 
 					onLoad();
+					if (settings.updateOnWindowResize===true && settings.useBackgroundSize===false) {
+						$(window).on("resize", onWindowResize);
+					}
 					checkResponsive();
 				}
 
@@ -267,6 +271,13 @@ imgLiquid.injectCss = '.imgLiquid img {visibility:hidden}';
 
 					$imgBoxCont.sizeOld = $imgBoxCont.actualSize;
 					setTimeout(checkResponsive, settings.responsiveCheckTime);
+				}
+
+
+				// _____________________________________________________________________
+
+				function onWindowResize() { 
+					processOldMethod();
 				}
 
 
